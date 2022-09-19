@@ -16,9 +16,49 @@
         nesse processo, você também pode acionar os gestores regionais e apoiadores institucionais. </p>
     <p>Clique nos nomes e conheça
         como se dá essa organização quanto à logística e quanto à comunicação.</p>
-    <div style="display: flex;margin-top: 78px;margin-left: 123px;">
-        <p style="font: normal normal 800 30px/18px Poppins;color: #096837;">LOGÍSTICA</p>
-        <p style="margin-left: 80px;font: normal normal 800 30px/18px Poppins;color: #EB3677;">COMUNICAÇÃO</p>
+    <div class="animate__animated animate__backInLeft" style="display: flex;margin-top: 78px;margin-left: 123px;">
+        <p id="botao_1" style="font: 800 30px / 18px Poppins; color: rgb(9, 104, 55); cursor: pointer;">LOGÍSTICA
+        </p>
+        <p id="botao_2"
+            style="margin-left: 80px; font: 800 30px / 18px Poppins; color: rgb(235, 54, 119); cursor: pointer;">
+            COMUNICAÇÃO</p>
+    </div>
+    <div>
+        <div class="jan" id="janela_1">
+            <div
+                style="width: 767px;height: 116px;background: #096837 0% 0% no-repeat padding-box;border-radius: 10px;display: flex;position: absolute;top: 190px;left: 60px;align-items: center;justify-content: space-evenly;">
+                <div
+                    style="width: 689px;display: flex;flex-direction: column;justify-content: space-between;align-items: center;">
+                    <p style="width: 720px;font: normal normal normal 14px/18px Poppins;color: #FFFFFF;">Realize um
+                        mapeamento do que será preciso para as atividades e a
+                        infraestrutura disponível. Verifique também a
+                        necessidade de deslocamentos, caso a atividade não seja realizada no local de trabalho, e de
+                        realização de reservas e
+                        autorizações para uso do espaço.</p>
+                </div>
+                <p style="color: #FFFFFF;position: absolute;top: -9px;left: 742px;">
+                    x</p>
+            </div>
+        </div>
+        <div class="jan" id="janela_2">
+            <div
+                style="width: 767px;height: 116px;background: #EB3677 0% 0% no-repeat padding-box;border-radius: 10px;display: flex;position: absolute;top: 190px;left: 57px;align-items: center;justify-content: space-evenly;">
+                <div
+                    style="width: 689px;display: flex;flex-direction: column;justify-content: space-between;align-items: center;">
+                    <p style="width: 720px;font: normal normal normal 14px/18px Poppins;color: #FFFFFF;">Estabeleça
+                        um canal de diálogo com participantes e facilitadores de
+                        aprendizagem para a divulgação das informações sobre
+                        as atividades a serem realizadas. Recomendamos que essa comunicação seja feita previamente a
+                        cada encontro, enviando aos
+                        participantes o planejamento do encontro, as leituras indicadas e os objetivos de
+                        aprendizagem.
+                    </p>
+                </div>
+                <p
+                    style="font: normal normal normal 14px/18px Poppins;letter-spacing: 0px;position: absolute;top: -9px;left: 742px;color: #FFFFFF;">
+                    x</p>
+            </div>
+        </div>
     </div>
 </div>
 <footer style="width: 1008px;height: 19px;display: flex;background-color: #CEE4F1;">
@@ -27,3 +67,28 @@
             PRIMÁRIA À SAÚDE</p>
     </div>
 </footer>
+<script>
+    $(() => {
+        let janelas = $(document).find('[id^=janela]').css('cursor', 'pointer').on("click", apagarJanelas);
+        apagarJanelas();
+        $(document).find('[id^=btn]').hide();
+        let botoes = $(document).find('[id^=botao]').map((index, botao) => {
+            $(botao).css('cursor', 'pointer');
+            $(botao).hover(() => {
+                $(document).find(`[id=btn_${index + 1}_2]`).show();
+            });
+            $(botao).mouseleave(() => {
+                $(document).find('[id^=btn]').hide();
+            });
+            $(botao).click(() => {
+                apagarJanelas();
+                $(janelas[index]).fadeIn();
+            })
+        })
+        function apagarJanelas() {
+            janelas.map((index, janela) => {
+                $(janela).hide();
+            })
+        }
+    })
+</script>
