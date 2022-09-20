@@ -12,9 +12,20 @@
         elaboração de uma narrativa contando sua trajetória e expectativas.</p>
     <p>Nesse processo, é importante conhecermos as
         seguintes informações (BRANQUINHO-SILVA, 2019; FUNESA, 2011):</p>
+    <div class="animate__animated animate__backInRight"
+        style="z-index: 100;display: inline-flex;margin-top: 100px;margin-left: 48px;width: 627px;justify-content: space-between;position: absolute;">
+        <div style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%;">
+            <img id="volta" src="recursos/imgs/ceta.svg"
+                style="margin-top: 8px; width: 20px; margin-left: 6px; opacity: 0.6; transform: scaleX(-1);">
+        </div>
+        <div style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%;">
+            <img id="avanca" src="recursos/imgs/ceta.svg"
+                style="margin-top: 8px; width: 20px; margin-left: 14px; opacity: 1;">
+        </div>
+    </div>
     <div class="animate__animated animate__backInLeft"
         style="margin-top: 46px;margin-left: 78px;width: 568px;height: 179px;background: #CEE4F1 0% 0% no-repeat padding-box;border-radius: 10px;display: flex;justify-content: space-around;align-items: center;color: #2F5579;">
-        <div>
+        <div id="janela_1">
             <p>Qual o contexto de trabalho dos participantes? </p>
             <p>Em que região ou território eles atuam? </p>
             <p>Quais são suas experiências nesse campo?</p>
@@ -33,6 +44,19 @@
                     style="position: absolute;top: 149px;margin-left: -14px;width: 4px;">
             </div>
         </div>
+        <div id="janela_2">
+            <p>Qual o nível de escolaridade? </p>
+            <p>Qual a sua jornada de trabalho semanal?</p>
+            <p>Qual a faixa etária</p>
+            <div>
+                <img src="recursos/imgs/Icon_awesome-dot-circle-1.svg"
+                    style="position: absolute;top: 57px;margin-left: -14px;width: 4px;">
+                <img src="recursos/imgs/Icon_awesome-dot-circle-1.svg"
+                    style="position: absolute;top: 86px;margin-left: -14px;width: 4px;">
+                <img src="recursos/imgs/Icon_awesome-dot-circle-1.svg"
+                    style="position: absolute;top: 119px;margin-left: -14px;width: 4px;">
+            </div>
+        </div>
     </div>
 </div>
 <footer style="width: 1008px;height: 19px;display: flex;background-color: #CEE4F1;">
@@ -41,3 +65,63 @@
             PRIMÁRIA À SAÚDE</p>
     </div>
 </footer>
+<script>
+    $(() => {
+        let janelas = $(document).find('[id^=janela]');
+        console.log(janelas);
+        let avanca = $(document).find('[id^=avanca]').on('click', avancar);
+        let volta = $(document).find('[id^=volta]').on('click', voltar);
+        let contador = 1;
+        $(volta).css('opacity', '0.6');
+
+        apagarJanelas();
+        $(document).find('[id^=janela_1]').show();
+
+        function avancar() {
+            if (contador < janelas.length) {
+                apagarJanelas();
+                contador++;
+                $(document).find(`[id^=janela_${contador}]`).show();
+            }
+            mudarBotoes();
+        }
+
+        function voltar() {
+            if (contador > 1) {
+                apagarJanelas();
+                contador--;
+                $(document).find(`[id^=janela_${contador}]`).show();
+            }
+            mudarBotoes();
+        }
+
+        function mudarBotoes() {
+            if (contador == 1) {
+                $(volta).css('opacity', '0.6');
+                $(avanca).css('opacity', '1');
+            }
+            if (contador == janelas.length) {
+                $(volta).css('opacity', '1');
+                $(avanca).css('opacity', '0.6');
+            }
+            if (contador > 1 && contador < janelas.length) {
+                $(volta).css('opacity', '1');
+                $(avanca).css('opacity', '1');
+            }
+        }
+
+        let botoes = $(document).find('[id^=botao]').map((index, botao) => {
+            $(botao).click(() => {
+                apagarJanelas();
+                mudarBotao(index + 1)
+                $(janelas[index + 1]).show();
+            })
+        })
+
+        function apagarJanelas() {
+            janelas.map((index, janela) => {
+                $(janela).hide();
+            })
+        }
+    })
+</script>
